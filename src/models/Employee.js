@@ -1,11 +1,11 @@
-const db = require('../db')
+const db = require('../modules/connectionDB')
 const { DataTypes } = require('sequelize')
 const Tangible = require('./Tangible')
 
 const Employee = db.define("employee", {
-    firstName: DataTypes.string,
-    lastName: DataTypes.string,
-    patronymic: DataTypes.string
+    firstName: DataTypes.STRING,
+    secondName: DataTypes.STRING,
+    patronymic: DataTypes.STRING
 })
 
 Employee.hasMany(Tangible, {

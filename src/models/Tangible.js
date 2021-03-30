@@ -1,7 +1,8 @@
-const db = require("../db"),
+const db = require("../modules/connectionDB"),
     { DataTypes } = require("sequelize")
 
-module.exports = db.define("material_values", {
-    name: DataTypes.string,
-    price: DataTypes.float(9, 2)
+module.exports = db.define("Tangibles", {
+    name: DataTypes.STRING,
+    price: DataTypes.FLOAT(9, 2)
+
 })
