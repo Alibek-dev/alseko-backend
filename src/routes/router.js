@@ -13,4 +13,9 @@ router.get('/api/employees', catchErrors(async (req, res, next) => {
    res.json(await EmployeeService.getListOfEmployees())
 }))
 
+router.post('/api/employees', catchErrors(async (req, res, next) => {
+    await EmployeeService.createEmployee(req.body.firstName, req.body.secondName, req.body.patronymic)
+    res.sendStatus(200)
+}))
+
 module.exports = router
