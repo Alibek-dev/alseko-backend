@@ -10,7 +10,7 @@ router.get('/api/server', (req, res) => {
 })
 
 router.get('/api/employees', catchErrors(async (req, res, next) => {
-   res.json(await EmployeeService.getAllInformation())
+   res.json(await EmployeeService.getListOfEmployees())
 }))
 
 module.exports = router
