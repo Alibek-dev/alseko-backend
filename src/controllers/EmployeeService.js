@@ -13,6 +13,15 @@ const throwErrorIfEmployeeHasExist = async (firstName, secondName, patronymic) =
     }
 }
 
+const throwErrorIfEmployeeNotExistOrGetEmployee = async(employeeId) => {
+    const employee = await Employee.findByPk(employeeId)
+
+    if (!employee) {
+        throw new ServiceError(404, "Пользователя не существует")
+    }
+    return employee
+}
+
 const getFullName = (employee) => {
     return `${employee.secondName} ${employee.firstName} ${employee.patronymic}`
 }
@@ -37,6 +46,24 @@ const EmployeeService = {
             secondName,
             patronymic
         })
+    },
+
+    updateEmployee: async (employeeId, firstName, secondName, patronymic) => {
+        let employee = throwErrorIfEmployeeNotExistOrGetEmployee(employeeId)
+        await throwErrorIfEmployeeHasExist(firstName, secondName, patronymic)
+
+        await Employee.update({
+            firstName,
+            secondName,
+            patronymic
+        }, {where: {
+                id: employeeId
+            }
+        })
+    },
+
+    deleteEmployee: async (employeeId) => {
+        await (await throwErrorIfEmployeeNotExistOrGetEmployee(employeeId)).destroy()
     }
 }
 
