@@ -2,10 +2,12 @@ const express = require('express')
 const connectionDB = require('./src/modules/connectionDB')
 const bodyParser = require("body-parser")
 const serverRoutes = require('./src/routes/router')
+const cors = require('cors');
 
 const PORT = process.env.PORT ?? 3000
 const app = express()
 
+app.use(cors())
 app.use(bodyParser.json())
 app.use(serverRoutes)
 
