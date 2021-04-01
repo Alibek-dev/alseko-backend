@@ -18,7 +18,7 @@ module.exports = {
                 firstName, secondName, patronymic
             }})
         if (isEmployeeExist) {
-            throw new ServiceError(409, "Пользователь с данным именем, фамилием и отчеством уже существует")
+            throw new ServiceError(409, "Данный пользователь уже существует")
         }
     },
 

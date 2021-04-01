@@ -8,6 +8,14 @@ const getFullName = (employee) => {
 
 const EmployeeService = {
 
+    getEmployeeByFullName: async (firstName, secondName, patronymic) => {
+        return await Employee.findOne({
+            where: {
+                firstName, secondName, patronymic
+            }
+        })
+    },
+
     getListOfEmployees: async () => {
         let employees = await Employee.findAll()
 

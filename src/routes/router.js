@@ -10,8 +10,14 @@ router.get('/api/employees', catchErrors(async (req, res, next) => {
 }))
 
 router.post('/api/employee', catchErrors(async (req, res, next) => {
-    await EmployeeService.createEmployee(req.body.firstName, req.body.secondName, req.body.patronymic)
-    res.sendStatus(200)
+    try {
+        await EmployeeService.createEmployee(req.body.firstName, req.body.secondName, req.body.patronymic)
+        let employee = await EmployeeService.getEmployeeByFullName(req.body.firstName, req.body.secondName, req.body.patronymic)
+        res.status(200).json(employee)
+    } catch (err) {
+        res.status(err.statusCode).json(err)
+    }
+
 }))
 
 router.put('/api/employee', catchErrors(async(req, res, next) => {
