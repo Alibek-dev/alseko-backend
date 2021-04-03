@@ -22,4 +22,15 @@ module.exports = {
         }
     },
 
+    throwErrorIfEmployeeHasExistAndNotThis: async (firstName, secondName, patronymic, employeeId) => {
+        const isEmployeeExist = await Employee.findOne({
+            where: {
+                firstName, secondName, patronymic
+            }})
+        console.log(isEmployeeExist)
+        if (isEmployeeExist && (isEmployeeExist.id !== employeeId)) {
+            throw new ServiceError(409, "Данный пользователь уже существует")
+        }
+    },
+
 }

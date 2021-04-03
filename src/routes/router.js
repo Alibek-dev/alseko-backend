@@ -15,14 +15,20 @@ router.post('/api/employee', catchErrors(async (req, res, next) => {
         let employee = await EmployeeService.getEmployeeByFullName(req.body.firstName, req.body.secondName, req.body.patronymic)
         res.status(200).json(employee)
     } catch (err) {
-        res.status(err.statusCode).json(err)
+        res.status(err.statusCode).json(err.message)
     }
 
 }))
 
 router.put('/api/employee', catchErrors(async(req, res, next) => {
-    await EmployeeService.updateEmployee(req.body.employeeId, req.body.firstName, req.body.secondName, req.body.patronymic)
-    res.sendStatus(200)
+    try {
+        await EmployeeService.updateEmployee(req.body.employeeId, req.body.firstName, req.body.secondName, req.body.patronymic)
+        let employee = await EmployeeService.getEmployeeByFullName(req.body.firstName, req.body.secondName, req.body.patronymic)
+        res.status(200).json(employee)
+    } catch (err) {
+        console.log(err)
+        res.status(err.statusCode).json(err.message)
+    }
 }))
 
 router.delete('/api/employee/:id', catchErrors(async(req, res, next) => {
@@ -31,7 +37,7 @@ router.delete('/api/employee/:id', catchErrors(async(req, res, next) => {
 }))
 
 
-router.get('/api/employee/:id/tangibles', catchErrors(async(req, res, next) => {
+router.get('/api/employee/:id', catchErrors(async(req, res, next) => {
     res.json (await TangibleService.getEmployeeTangibles(req.params.id))
 
 }))

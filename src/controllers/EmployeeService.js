@@ -38,8 +38,8 @@ const EmployeeService = {
     },
 
     updateEmployee: async (employeeId, firstName, secondName, patronymic) => {
-        let employee = this.throwErrorIfEmployeeNotExistOrGetEmployee(employeeId)
-        await Exceptions.throwErrorIfEmployeeHasExist(firstName, secondName, patronymic)
+        let employee = await Exceptions.throwErrorIfEmployeeNotExistOrGetEmployee(employeeId)
+        await Exceptions.throwErrorIfEmployeeHasExistAndNotThis(firstName, secondName, patronymic, employeeId)
 
         await Employee.update({
             firstName,
