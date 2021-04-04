@@ -7,7 +7,7 @@ module.exports = {
         const employee = await Employee.findByPk(employeeId)
 
         if (!employee) {
-            throw new ServiceError(404, "Пользователя не существует")
+            throw new ServiceError(404, "Сотрудник не существует")
         }
         return employee
     },
@@ -18,7 +18,7 @@ module.exports = {
                 firstName, secondName, patronymic
             }})
         if (isEmployeeExist) {
-            throw new ServiceError(409, "Данный пользователь уже существует")
+            throw new ServiceError(409, "Данный сотрудник уже существует")
         }
     },
 
@@ -29,7 +29,7 @@ module.exports = {
             }})
         console.log(isEmployeeExist)
         if (isEmployeeExist && (isEmployeeExist.id !== employeeId)) {
-            throw new ServiceError(409, "Данный пользователь уже существует")
+            throw new ServiceError(409, "Данный сотрудник уже существует")
         }
     },
 
